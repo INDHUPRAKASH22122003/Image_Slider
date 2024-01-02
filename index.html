@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Slider</title>
+  <style>
+    /* CSS Styling */
+    .slider-container {
+      position: relative;
+      max-width: 5  0%;
+      margin: 0 auto;
+    }
+
+    .slider {
+      width: 50%;
+      overflow: hidden;
+      position: relative;
+      align-items: center;
+      padding-left: 550px;
+    }
+
+    .slider img {
+      width: 50%;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .prev-btn,
+    .next-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .prev-btn {
+      left: 10px;
+    }
+
+    .next-btn {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+<center><h1>Image Slider</h1></center>
+<div class="slider-container">
+  <button class="prev-btn">Previous</button>
+  <div class="slider">
+    <img src="https://w0.peakpx.com/wallpaper/750/658/HD-wallpaper-city-street-buildings-traffic-road-asphalt.jpg" alt="Image 1">
+  </div>
+  <button class="next-btn">Next</button>
+</div>
+
+<script>
+  // JavaScript Functionality
+  const images = ["https://w0.peakpx.com/wallpaper/750/658/HD-wallpaper-city-street-buildings-traffic-road-asphalt.jpg", "https://images.wallpaperscraft.com/image/single/street_night_wet_155637_800x1200.jpg", "https://images.wallpaperscraft.com/image/single/city_aerial_view_road_156925_800x1200.jpg", "https://w0.peakpx.com/wallpaper/433/240/HD-wallpaper-night-city-street-buildings-skyscrapers-lights.jpg", "https://images.wallpaperscraft.com/image/single/night_city_street_skyscrapers_133350_800x1200.jpg","https://w0.peakpx.com/wallpaper/65/559/HD-wallpaper-pink-sky-in-urban-city.jpg","https://c.pxhere.com/photos/d9/63/eiffel_tower_city_tower_france_la_tour_eiffel-14942.jpg!d"];
+  let currentIndex = 0;
+  const slider = document.querySelector('.slider');
+  const prevBtn = document.querySelector('.prev-btn');
+  const nextBtn = document.querySelector('.next-btn');
+  let autoSlideInterval;
+
+  function showImage(index) {
+    slider.innerHTML = `<img src="${images[index]}" alt="Image ${index + 1}">`;
+  }
+
+  function displayFirstImage() {
+    showImage(0);
+  }
+
+  function showNextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  }
+
+  function showPreviousImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showImage(currentIndex);
+  }
+
+  function startAutoSlide() {
+    autoSlideInterval = setInterval(showNextImage, 3000); // Change image every 3 seconds
+  }
+
+  function stopAutoSlide() {
+    clearInterval(autoSlideInterval);
+  }
+
+  prevBtn.addEventListener('click', () => {
+    stopAutoSlide();
+    showPreviousImage();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    stopAutoSlide();
+    showNextImage();
+  });
+
+  displayFirstImage();
+  startAutoSlide();
+</script>
+
+</body>
+</html>
